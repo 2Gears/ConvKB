@@ -133,13 +133,13 @@ with tf.Graph().as_default():
         train_summary_writer = tf.summary.FileWriter(train_summary_dir, sess.graph)
         
         # Dev summaries
-        dev_summary_op = tf.summary.merge([loss_summary])
-        dev_summary_dir = os.path.join(out_dir, "summaries", "dev")
-        dev_summary_writer = tf.summary.FileWriter(dev_summary_dir, sess.graph)
+        # dev_summary_op = tf.summary.merge([loss_summary])
+        # dev_summary_dir = os.path.join(out_dir, "summaries", "dev")
+        # dev_summary_writer = tf.summary.FileWriter(dev_summary_dir, sess.graph)
         
-        test_summary_op = tf.summary.merge([loss_summary])
-        test_summary_dir = os.path.join(out_dir, "summaries", "test")
-        test_summary_writer = tf.summary.FileWriter(test_summary_dir, sess.graph)
+        # test_summary_op = tf.summary.merge([loss_summary])
+        # test_summary_dir = os.path.join(out_dir, "summaries", "test")
+        # test_summary_writer = tf.summary.FileWriter(test_summary_dir, sess.graph)
    
         # Checkpoint directory. Tensorflow assumes this directory already exists so we need to create it
         checkpoint_dir = os.path.abspath(os.path.join(out_dir, "checkpoints"))
@@ -177,11 +177,11 @@ with tf.Graph().as_default():
               cnn.dropout_keep_prob: 1.0,
 
             }
-            step, summaries, scores, _ = sess.run([global_step, dev_summary_op, cnn.predictions, cnn.loss], feed_dict)
-            # step, scores, _ = sess.run([global_step, cnn.predictions, cnn.loss], feed_dict)
+            # step, summaries, scores, _ = sess.run([global_step, train_summary_op, cnn.predictions, cnn.loss], feed_dict)
+            step, scores, _ = sess.run([global_step, cnn.predictions, cnn.loss], feed_dict)
             #_ = datetime.datetime.now().isoformat()
-            if writer:
-                writer.add_summary(summaries, step)
+            # if writer:
+            #     writer.add_summary(summaries, step)
             
             return scores
         
@@ -193,7 +193,7 @@ with tf.Graph().as_default():
                 train_step(x_batch, y_batch)
                 current_step = tf.train.global_step(sess, global_step)
                 
-                if current_step % 10000 == 0:
+                if current_step % 100 == 0:
                     # if FLAGS.cls_or_pred == 'prediction':
                     print("\nEvaluating the link prediction task for the loss on the valid set at step", current_step)
                     predict(x_valid, y_valid, writer=dev_summary_writer)
