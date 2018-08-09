@@ -148,7 +148,7 @@ with tf.Graph().as_default():
             os.makedirs(checkpoint_dir)
 
         # Write vocabulary
-        vocab_processor.save(os.path.join(out_dir, "vocab"))
+        # vocab_processor.save(os.path.join(out_dir, "vocab"))
    
         # Initialize all variables
         sess.run(tf.global_variables_initializer())
