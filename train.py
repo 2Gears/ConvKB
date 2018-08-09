@@ -166,7 +166,7 @@ with tf.Graph().as_default():
             _, step, summaries, loss = sess.run([train_op, global_step, train_summary_op, cnn.loss], feed_dict)
             # _, step, loss = sess.run([train_op, global_step, cnn.loss], feed_dict)
             time_str = datetime.datetime.now().isoformat()
-            print("{}: step {}, loss {:g}, acc {:g}".format(time_str, step, loss))
+            # print("{}: step {}, loss {:g}, acc {:g}".format(time_str, step, loss))
             train_summary_writer.add_summary(summaries, step)
                   
         #Predict function to predict scores for test data
