@@ -196,7 +196,7 @@ with tf.Graph().as_default():
                 if current_step % 100 == 0:
                     # if FLAGS.cls_or_pred == 'prediction':
                     print("\nEvaluating the link prediction task for the loss on the valid set at step", current_step)
-                    predict(x_valid, y_valid, writer=dev_summary_writer)
+                    predict(x_valid, y_valid, writer=train_summary_writer)
             
             if epoch > 0:
                 if epoch % FLAGS.saveStep == 0:
