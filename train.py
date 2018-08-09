@@ -179,6 +179,8 @@ with tf.Graph().as_default():
             }
             # step, summaries, scores, _ = sess.run([global_step, train_summary_op, cnn.predictions, cnn.loss], feed_dict)
             step, scores, _ = sess.run([global_step, cnn.predictions, cnn.loss], feed_dict)
+            if step % 1000 == 0:
+              print(step)
             #_ = datetime.datetime.now().isoformat()
             # if writer:
             #     writer.add_summary(summaries, step)
@@ -193,10 +195,10 @@ with tf.Graph().as_default():
                 train_step(x_batch, y_batch)
                 current_step = tf.train.global_step(sess, global_step)
                 
-                if current_step % 100 == 0:
+                # if current_step % 100 == 0:
                     # if FLAGS.cls_or_pred == 'prediction':
-                    print("\nEvaluating the link prediction task for the loss on the valid set at step", current_step)
-                    predict(x_valid, y_valid, writer=train_summary_writer)
+                    # print("\nEvaluating the link prediction task for the loss on the valid set at step", current_step)
+                    # predict(x_valid, y_valid, writer=dev_summary_writer)
             
             if epoch > 0:
                 if epoch % FLAGS.saveStep == 0:
