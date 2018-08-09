@@ -191,6 +191,7 @@ with tf.Graph().as_default():
         num_batches_per_epoch = int((data_size - 1) / FLAGS.batch_size) + 1
         for epoch in range(FLAGS.num_epochs):
             for batch_num in range(num_batches_per_epoch):
+                print("BATCHNUM", batch_num, "/", num_batches_per_epoch)
                 x_batch, y_batch = train_batch()
                 train_step(x_batch, y_batch)
                 current_step = tf.train.global_step(sess, global_step)
@@ -199,7 +200,7 @@ with tf.Graph().as_default():
                     # if FLAGS.cls_or_pred == 'prediction':
                     # print("\nEvaluating the link prediction task for the loss on the valid set at step", current_step)
                     # predict(x_valid, y_valid, writer=dev_summary_writer)
-            
+            print("EPOCH", epoch)            
             if epoch > 0:
                 if epoch % FLAGS.saveStep == 0:
                     path = cnn.saver.save(sess, checkpoint_prefix, global_step=epoch)
